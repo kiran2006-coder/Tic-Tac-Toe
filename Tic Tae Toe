@@ -1,31 +1,21 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class TicTacToe {
+public class TicTacToeInput {
 
-    public static void displayBoard(char[][] board) {
-        System.out.println("Tic-Tac-Toe Board:");
-        System.out.println("-----------------");
+    public static int getUserInput() {
+        Scanner sc = new Scanner(System.in);
+        int slot;
 
-        for (int i = 0; i < 3; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("-----------------");
-        }
+        System.out.print("Enter a slot number (1-9): ");
+        slot = sc.nextInt();   
+
+        return slot;           
     }
 
     public static void main(String[] args) {
-        char[][] board = new char[3][3];
 
-       
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';
-            }
-        }
+        int userSlot = getUserInput();
 
-        displayBoard(board);
+        System.out.println("You selected slot: " + userSlot);
     }
 }
