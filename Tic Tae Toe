@@ -1,34 +1,38 @@
 class TicTacToe {
 
     private char[][] board;
+
     public TicTacToe() {
         board = new char[3][3];
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';  
+                board[i][j] = '-';
             }
         }
     }
+
     public boolean isValidMove(int row, int col) {
         if (row < 0 || row > 2 || col < 0 || col > 2) {
-            System.out.println("Invalid move: Out of bounds!");
             return false;
         }
-
         if (board[row][col] != '-') {
-            System.out.println("Invalid move: Cell already occupied!");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateBoard(int row, int col, char symbol) {
+
+        if (!isValidMove(row, col)) {
+            System.out.println("Move rejected!");
             return false;
         }
 
-        return true; 
-    }
-    public void makeMove(int row, int col, char player) {
-        if (isValidMove(row, col)) {
-            board[row][col] = player;
-            System.out.println("Move accepted.");
-        } else {
-            System.out.println("Move rejected.");
-        }
+        board[row][col] = symbol;
+
+        System.out.println("Move accepted. Board updated.");
+        return true;
     }
     public void displayBoard() {
         for (int i = 0; i < 3; i++) {
@@ -44,10 +48,8 @@ class TicTacToe {
 
         game.displayBoard();
 
-        // Test moves
-        game.makeMove(1, 1, 'X'); // valid
-        game.makeMove(1, 1, 'O'); // invalid (occupied)
-        game.makeMove(3, 0, 'X'); // invalid (out of bounds)
+        game.updateBoard(0, 0, 'X'); // valid
+        game.updateBoard(0, 0, 'O'); // invalid (already filled)
 
         game.displayBoard();
     }
