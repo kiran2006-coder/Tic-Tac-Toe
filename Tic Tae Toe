@@ -1,31 +1,54 @@
-import java.util.*;
+class TicTacToe {
 
-public class TicTacToe {
-
-    public static void displayBoard(char[][] board) {
-        System.out.println("Tic-Tac-Toe Board:");
-        System.out.println("-----------------");
-
+    private char[][] board;
+    public TicTacToe() {
+        board = new char[3][3];
         for (int i = 0; i < 3; i++) {
-            System.out.print("| ");
             for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " | ");
+                board[i][j] = '-';  
+            }
+        }
+    }
+    public boolean isValidMove(int row, int col) {
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            System.out.println("Invalid move: Out of bounds!");
+            return false;
+        }
+
+        if (board[row][col] != '-') {
+            System.out.println("Invalid move: Cell already occupied!");
+            return false;
+        }
+
+        return true; 
+    }
+    public void makeMove(int row, int col, char player) {
+        if (isValidMove(row, col)) {
+            board[row][col] = player;
+            System.out.println("Move accepted.");
+        } else {
+            System.out.println("Move rejected.");
+        }
+    }
+    public void displayBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j] + " ");
             }
             System.out.println();
-            System.out.println("-----------------");
         }
     }
 
     public static void main(String[] args) {
-        char[][] board = new char[3][3];
+        TicTacToe game = new TicTacToe();
 
-       
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';
-            }
-        }
+        game.displayBoard();
 
-        displayBoard(board);
+        // Test moves
+        game.makeMove(1, 1, 'X'); // valid
+        game.makeMove(1, 1, 'O'); // invalid (occupied)
+        game.makeMove(3, 0, 'X'); // invalid (out of bounds)
+
+        game.displayBoard();
     }
 }
