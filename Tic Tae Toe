@@ -1,31 +1,56 @@
-import java.util.*;
+class TicTacToe {
 
-public class TicTacToe {
+    private char[][] board;
 
-    public static void displayBoard(char[][] board) {
-        System.out.println("Tic-Tac-Toe Board:");
-        System.out.println("-----------------");
+    public TicTacToe() {
+        board = new char[3][3];
 
-        for (int i = 0; i < 3; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("-----------------");
-        }
-    }
-
-    public static void main(String[] args) {
-        char[][] board = new char[3][3];
-
-       
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = '-';
             }
         }
+    }
 
-        displayBoard(board);
+    public boolean isValidMove(int row, int col) {
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+        if (board[row][col] != '-') {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateBoard(int row, int col, char symbol) {
+
+        if (!isValidMove(row, col)) {
+            System.out.println("Move rejected!");
+            return false;
+        }
+
+        board[row][col] = symbol;
+
+        System.out.println("Move accepted. Board updated.");
+        return true;
+    }
+    public void displayBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        TicTacToe game = new TicTacToe();
+
+        game.displayBoard();
+
+        game.updateBoard(0, 0, 'X'); // valid
+        game.updateBoard(0, 0, 'O'); // invalid (already filled)
+
+        game.displayBoard();
     }
 }
